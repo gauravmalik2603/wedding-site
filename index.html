@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Great+Vibes&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root {
@@ -2156,6 +2157,23 @@
 
 <script>
 // ==============================
+// SUPABASE SETUP
+// ==============================
+// 1. Create a free project at https://supabase.com
+// 2. Create "rsvps" and "wishes" tables (see README / setup instructions)
+// 3. Go to Project Settings -> API and paste your values below
+const SUPABASE_URL = 'https://xgamplidionlkligaxcw.supabase.co/rest/v1/';           // e.g. https://xxxxxxxxxxxx.supabase.co
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhnYW1wbGlkaW9ubGtsaWdheGN3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MDA3NDEsImV4cCI6MjA5OTI3Njc0MX0.MMLuQOd0lWKZaRxK2Opjut9d2hX_48uDMDc4xaKeTTI';  // the public "anon" key, NOT the service_role key
+
+const sbClient = (SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY')
+  ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  : null;
+
+if (!sbClient) {
+  console.warn('Supabase is not configured yet — RSVPs and wishes will only be saved locally in this browser. Add your SUPABASE_URL and SUPABASE_ANON_KEY in the script to enable the shared database.');
+}
+
+// ==============================
 // THREE.JS — ELEGANT STARRY SKY
 // ==============================
 (function initHeroCanvas() {
@@ -2559,7 +2577,7 @@ lightsToggleEl.addEventListener('keydown', function(e) {
 // ==============================
 // RSVP FORM
 // ==============================
-document.getElementById('rsvp-btn').addEventListener('click', function () {
+document.getElementById('rsvp-btn').addEventListener('click', async function () {
   const name   = document.getElementById('f-name').value.trim();
   const phone  = document.getElementById('f-phone').value.trim();
   const guests = document.getElementById('f-guests').value.trim();
@@ -2572,17 +2590,41 @@ document.getElementById('rsvp-btn').addEventListener('click', function () {
     return;
   }
 
-  const rsvps = JSON.parse(localStorage.getItem('gs-rsvps') || '[]');
-  rsvps.push({
-    name, phone, guests,
-    arriveDate  : document.getElementById('f-arrive-date').value,
-    arriveTime  : document.getElementById('f-arrive-time').value,
+  const rsvpBtn = this;
+  const originalBtnHtml = rsvpBtn.innerHTML;
+  rsvpBtn.disabled = true;
+  rsvpBtn.style.opacity = '0.7';
+
+  const record = {
+    name, phone, guests: Number(guests) || guests,
+    arrive_date : document.getElementById('f-arrive-date').value,
+    arrive_time : document.getElementById('f-arrive-time').value,
     travel      : document.getElementById('f-travel').value,
     diet        : document.getElementById('f-diet').value,
-    song        : document.getElementById('f-song').value,
-    ts          : new Date().toISOString()
-  });
-  localStorage.setItem('gs-rsvps', JSON.stringify(rsvps));
+    song        : document.getElementById('f-song').value
+  };
+
+  let saved = false;
+
+  if (sbClient) {
+    const { error } = await sbClient.from('rsvps').insert(record);
+    if (error) {
+      console.error('Supabase RSVP insert failed, falling back to local storage:', error);
+    } else {
+      saved = true;
+    }
+  }
+
+  if (!saved) {
+    // Fallback: keep a local copy in this browser if Supabase isn't set up or the request failed
+    const rsvps = JSON.parse(localStorage.getItem('gs-rsvps') || '[]');
+    rsvps.push({ ...record, ts: new Date().toISOString() });
+    localStorage.setItem('gs-rsvps', JSON.stringify(rsvps));
+  }
+
+  rsvpBtn.disabled = false;
+  rsvpBtn.style.opacity = '';
+  rsvpBtn.innerHTML = originalBtnHtml;
 
   document.getElementById('rsvp-form-inner').style.display = 'none';
   const suc = document.getElementById('rsvp-success');
@@ -2593,8 +2635,7 @@ document.getElementById('rsvp-btn').addEventListener('click', function () {
 // ==============================
 // NOTES WITH HEART BURST
 // ==============================
-function renderNotes() {
-  const notes = JSON.parse(localStorage.getItem('gs-notes') || '[]');
+function renderNotesFromList(notes) {
   const el = document.getElementById('notes-display');
   el.innerHTML = notes.length === 0 ? '' : notes.map(n => `
     <div class="note-item">
@@ -2604,11 +2645,34 @@ function renderNotes() {
   `).join('');
 }
 
+function renderNotesFromLocalStorage() {
+  const notes = JSON.parse(localStorage.getItem('gs-notes') || '[]');
+  renderNotesFromList(notes);
+}
+
+async function renderNotes() {
+  if (!sbClient) {
+    renderNotesFromLocalStorage();
+    return;
+  }
+  const { data, error } = await sbClient
+    .from('wishes')
+    .select('name, message, created_at')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Supabase wishes fetch failed, showing local copy instead:', error);
+    renderNotesFromLocalStorage();
+    return;
+  }
+  renderNotesFromList(data.map(d => ({ name: d.name, msg: d.message })));
+}
+
 function escHtml(str) {
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-document.getElementById('notes-btn').addEventListener('click', function () {
+document.getElementById('notes-btn').addEventListener('click', async function () {
   const name = document.getElementById('n-name').value.trim();
   const msg  = document.getElementById('n-msg').value.trim();
   if (!msg) { 
@@ -2631,9 +2695,23 @@ document.getElementById('notes-btn').addEventListener('click', function () {
     setTimeout(() => heart.remove(), 1500);
   }
 
-  const notes = JSON.parse(localStorage.getItem('gs-notes') || '[]');
-  notes.unshift({ name: name || 'A Dear Guest', msg, ts: new Date().toISOString() });
-  localStorage.setItem('gs-notes', JSON.stringify(notes));
+  const noteName = name || 'A Dear Guest';
+  let saved = false;
+
+  if (sbClient) {
+    const { error } = await sbClient.from('wishes').insert({ name: noteName, message: msg });
+    if (error) {
+      console.error('Supabase wishes insert failed, falling back to local storage:', error);
+    } else {
+      saved = true;
+    }
+  }
+
+  if (!saved) {
+    const notes = JSON.parse(localStorage.getItem('gs-notes') || '[]');
+    notes.unshift({ name: noteName, msg, ts: new Date().toISOString() });
+    localStorage.setItem('gs-notes', JSON.stringify(notes));
+  }
 
   document.getElementById('n-name').value = '';
   document.getElementById('n-msg').value  = '';
