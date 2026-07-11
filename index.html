@@ -284,6 +284,23 @@
       50% { box-shadow: 0 0 60px rgba(201,168,76,1), 0 4px 35px rgba(0,0,0,0.75); }
     }
 
+    .inv-dear {
+      position: absolute;
+      top: 13%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 15;
+      width: 80%;
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.3rem, 5vw, 1.9rem);
+      line-height: 1.2;
+      color: var(--gold-light);
+      text-shadow: 0 0 20px rgba(201,168,76,0.5);
+      text-align: center;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
     /* ============================
        NAVIGATION
     ============================ */
@@ -682,37 +699,37 @@
       overflow: hidden;
     }
 
-    .couple-video {
-      width: 100%;
-      height: 320px;
-      border: 2px solid rgba(201,168,76,0.3);
-      border-radius: 2px;
-      background: rgba(0,0,0,0.3);
-      margin-bottom: 20px;
-      object-fit: cover;
-    }
-
-    .couple-illustration {
+    .event-gif-wrap {
+      position: relative;
       width: 100%;
       height: 320px;
       background: rgba(0,0,0,0.2);
       border: 2px solid rgba(201,168,76,0.3);
       border-radius: 2px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .event-gif-wrap img.event-gif {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .event-gif-placeholder {
+      position: absolute;
+      inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
+      padding: 20px;
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       color: rgba(255,255,255,0.5);
       font-size: 0.9rem;
-      margin-bottom: 20px;
-      position: relative;
-    }
-    .couple-illustration::before {
-      content: attr(data-desc);
-      position: absolute;
-      text-align: center;
-      padding: 20px;
     }
     .back-title {
       font-family: 'Cinzel Decorative', serif;
@@ -1025,6 +1042,18 @@
       font-size: 0.75rem;
       color: var(--burg);
       transition: color 0.3s ease;
+    }
+
+    .polaroid-image img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .polaroid-placeholder-text {
+      position: relative;
     }
 
     .polaroid-frame.lights-off .polaroid-caption {
@@ -1453,6 +1482,7 @@
       gap: 11px;
     }
     .footer-btn.wa { background: #25D366; color: white; }
+    .footer-btn.wa svg { width: 18px; height: 18px; fill: #ffffff; }
     .footer-btn.wa:hover { background: #1EBE58; transform: translateY(-3px); box-shadow: 0 5px 24px rgba(37,211,102,0.4); }
     .footer-btn.bot { border: 1px solid var(--gold); color: var(--gold); background: rgba(26,4,13,0.6); }
     .footer-btn.bot:hover { background: rgba(201,168,76,0.12); transform: translateY(-3px); }
@@ -1473,13 +1503,43 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.7rem;
       text-decoration: none;
       box-shadow: 0 4px 22px rgba(37,211,102,0.5);
       z-index: 50;
       transition: all 0.3s;
     }
+    .float-wa svg { width: 28px; height: 28px; fill: #ffffff; }
     .float-wa:hover { transform: scale(1.15); box-shadow: 0 7px 35px rgba(37,211,102,0.7); }
+
+    .music-toggle {
+      position: fixed;
+      bottom: 34px; left: 34px;
+      width: 54px; height: 54px;
+      background: rgba(26,4,13,0.75);
+      border: 1.5px solid rgba(201,168,76,0.55);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 50;
+      backdrop-filter: blur(6px);
+      transition: all 0.3s;
+    }
+    .music-toggle svg { width: 22px; height: 22px; fill: var(--gold-light); }
+    .music-toggle:hover {
+      background: rgba(201,168,76,0.18);
+      transform: scale(1.1);
+      box-shadow: 0 4px 22px rgba(201,168,76,0.35);
+    }
+
+    @media (max-width: 640px) {
+      .float-wa, .music-toggle { width: 48px; height: 48px; bottom: 20px; }
+      .float-wa { right: 20px; }
+      .music-toggle { left: 20px; }
+      .float-wa svg { width: 24px; height: 24px; }
+      .music-toggle svg { width: 19px; height: 19px; }
+    }
 
     /* ============================
        ANIMATIONS
@@ -1575,17 +1635,52 @@
       .form-row { grid-template-columns: 1fr; }
       .rsvp-card { padding: 32px 24px; }
       .inv-scene { width: 90vw; height: 78vw; max-width: 390px; max-height: 560px; }
+      .inv-revealed { padding: 32px 20px; gap: 6px; }
       .inv-name { font-size: 1.15rem; }
       .inv-parents { font-size: 0.65rem; }
       .inv-amp { font-size: 2.6rem; }
+      .inv-enter-btn { padding: 10px 16px; font-size: 0.5rem; letter-spacing: 2.5px; max-width: 100%; white-space: normal; line-height: 1.6; }
       .countdown { gap: 14px; }
       .cd-num { font-size: 2rem; min-width: 55px; }
       .section-title { font-size: 2rem; }
       .section-label { font-size: 0.65rem; }
       .story-item-card { width: 95vw; }
-      .events-grid { grid-template-columns: 1fr; }
-      .event-card-wrapper { height: 520px; }
+
+      /* Event cards */
+      .events-grid { grid-template-columns: 1fr; gap: 22px; width: 100%; }
+      .event-card-wrapper { height: 460px; width: 100%; }
+      .event-card-front { padding: 30px 22px; }
+      .event-icon { font-size: 2.3rem; margin-bottom: 12px; }
+      .event-name { font-size: 1.15rem; }
+      .event-sub { font-size: 0.82rem; margin-bottom: 16px; }
+      .event-detail { font-size: 0.85rem; margin-bottom: 8px; }
+      .event-dc { margin-top: 14px; padding: 9px 14px; }
+      .event-card-back { padding: 20px; }
+      .event-gif-wrap { height: 210px; margin-bottom: 14px; }
+
+      /* How to Reach */
+      .reach-grid { gap: 16px; margin-bottom: 36px; }
+      .reach-card { padding: 22px 16px; }
+      .reach-icon { font-size: 2rem; margin-bottom: 10px; }
+      .reach-title { font-size: 0.6rem; margin-bottom: 10px; }
+      .reach-body { font-size: 0.85rem; line-height: 1.8; }
+      .map-wrap iframe { height: 260px; }
+
       footer { background-attachment: scroll; }
+    }
+
+    @media (max-width: 480px) {
+      section { padding: 60px 16px; }
+      .section-title { font-size: 1.7rem; }
+      .rsvp-card { padding: 26px 18px; }
+      .inv-revealed { padding: 26px 14px; }
+      .inv-enter-btn { padding: 9px 12px; font-size: 0.46rem; letter-spacing: 2px; }
+      .event-card-wrapper { height: 430px; }
+      .event-card-front { padding: 26px 18px; }
+      .event-gif-wrap { height: 180px; }
+      .reach-card { padding: 18px 14px; }
+      .polaroid-frame { width: 160px; height: 220px; }
+      .polaroid-image { height: 135px; }
     }
   </style>
 </head>
@@ -1597,6 +1692,8 @@
   <div class="inv-glow inv-glow-2"></div>
 
   <div class="inv-scene">
+    <div class="inv-dear" id="inv-dear">Dear Guest</div>
+
     <div class="inv-revealed">
       <div class="inv-corner-heart tl">❤</div>
       <div class="inv-corner-heart tr">❤</div>
@@ -1647,7 +1744,26 @@
   <canvas id="celebration-canvas"></canvas>
 </div>
 
-<a class="float-wa" href="https://wa.me/918527565384" target="_blank" title="Chat on WhatsApp">💬</a>
+<!-- Background music: replace the src below with your own track (mp3 file in media/music/) -->
+<audio id="bg-music" loop preload="auto">
+  <source src="media/music/theme-song.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-toggle" id="music-toggle" aria-label="Toggle background music" aria-pressed="false" title="Toggle music">
+  <svg class="icon-sound-on" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+  </svg>
+  <svg class="icon-sound-off" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+  </svg>
+</button>
+
+<a class="float-wa" href="https://wa.me/918800412992" target="_blank" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12.017 2C6.503 2 2.031 6.472 2.031 11.986c0 1.94.539 3.751 1.475 5.297L2 22l4.887-1.474a9.921 9.921 0 004.926 1.293h.005c5.514 0 9.986-4.472 9.986-9.986C21.804 6.472 17.531 2 12.017 2zm0 18.245a8.246 8.246 0 01-4.19-1.145l-.3-.178-3.096.812.826-3.02-.196-.31a8.235 8.235 0 01-1.264-4.404c0-4.557 3.706-8.263 8.264-8.263 4.556 0 8.263 3.706 8.263 8.263-.004 4.558-3.71 8.245-8.307 8.245z"/>
+  </svg>
+</a>
 
 <!-- NAVIGATION -->
 <nav id="navbar">
@@ -1742,9 +1858,10 @@
           </div>
         </div>
         <div class="event-card-back">
-          <video class="couple-video" autoplay loop muted playsinline>
-            <source src="/mnt/user-data/uploads/mp_.mp4" type="video/mp4">
-          </video>
+          <div class="event-gif-wrap">
+            <span class="event-gif-placeholder">✨ Add your Sangeet GIF here</span>
+            <img class="event-gif" src="media/events/sangeet.gif" alt="Sangeet celebration" loading="lazy" onerror="this.style.display='none'">
+          </div>
           <p class="back-title">Shaam Shaandaar ✨</p>
           <button class="back-btn" onclick="flipCard(this)">← Back to Card</button>
         </div>
@@ -1774,8 +1891,10 @@
           </div>
         </div>
         <div class="event-card-back">
-          <div class="couple-illustration" data-desc="🌼 Couple on swing in vibrant traditional attire
-[Animated couple illustration placeholder]"></div>
+          <div class="event-gif-wrap">
+            <span class="event-gif-placeholder">🌼 Add your Haldi GIF here</span>
+            <img class="event-gif" src="media/events/haldi.gif" alt="Haldi celebration" loading="lazy" onerror="this.style.display='none'">
+          </div>
           <p class="back-title">Hues of Haldi 🌸</p>
           <button class="back-btn" onclick="flipCard(this)">← Back to Card</button>
         </div>
@@ -1805,8 +1924,10 @@
           </div>
         </div>
         <div class="event-card-back">
-          <div class="couple-illustration" data-desc="👰🤵 Couple in royal pastel attire exchanging garlands
-[Animated couple illustration placeholder]"></div>
+          <div class="event-gif-wrap">
+            <span class="event-gif-placeholder">👰🤵 Add your Wedding GIF here</span>
+            <img class="event-gif" src="media/events/wedding.gif" alt="Wedding ceremony" loading="lazy" onerror="this.style.display='none'">
+          </div>
           <p class="back-title">Gaurav ki Baaraat 🌺</p>
           <button class="back-btn" onclick="flipCard(this)">← Back to Card</button>
         </div>
@@ -1881,54 +2002,84 @@
     <div class="carousel-track" id="carousel-track">
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">[Photo: Love at First Sight]</div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: Love at First Sight]</span>
+          <img src="images/story/1-first-hello.jpg" alt="The First Hello" loading="lazy" onerror="this.style.display='none'">
+        </div>
         <div class="polaroid-caption">The First Hello<br><span style="font-size:0.65rem;">2022</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">[Photo: Adventures Together]</div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: Adventures Together]</span>
+          <img src="images/story/2-adventures.jpg" alt="Adventures Together" loading="lazy" onerror="this.style.display='none'">
+        </div>
         <div class="polaroid-caption">Adventures Together<br><span style="font-size:0.65rem;">2023</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">[Photo: Love Across Miles]</div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: Love Across Miles]</span>
+          <img src="images/story/3-love-across-miles.jpg" alt="Love Across Miles" loading="lazy" onerror="this.style.display='none'">
+        </div>
         <div class="polaroid-caption">Love Across Miles<br><span style="font-size:0.65rem;">2024</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">[Photo: The Roka]</div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: The Roka]</span>
+          <img src="images/story/4-the-roka.jpg" alt="The Roka" loading="lazy" onerror="this.style.display='none'">
+        </div>
         <div class="polaroid-caption">The Roka<br><span style="font-size:0.65rem;">2025</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">[Photo: The Proposal]</div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: The Proposal]</span>
+          <img src="images/story/5-the-proposal.jpg" alt="The Proposal" loading="lazy" onerror="this.style.display='none'">
+        </div>
         <div class="polaroid-caption">The Proposal<br><span style="font-size:0.65rem;">2026</span></div>
       </div>
 
       <!-- Duplicate for seamless loop -->
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">[Photo: Love at First Sight]</div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: Love at First Sight]</span>
+          <img src="images/story/1-first-hello.jpg" alt="The First Hello" loading="lazy" onerror="this.style.display='none'">
+        </div>
         <div class="polaroid-caption">The First Hello<br><span style="font-size:0.65rem;">2022</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">[Photo: Adventures Together]</div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: Adventures Together]</span>
+          <img src="images/story/2-adventures.jpg" alt="Adventures Together" loading="lazy" onerror="this.style.display='none'">
+        </div>
         <div class="polaroid-caption">Adventures Together<br><span style="font-size:0.65rem;">2023</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">[Photo: Love Across Miles]</div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: Love Across Miles]</span>
+          <img src="images/story/3-love-across-miles.jpg" alt="Love Across Miles" loading="lazy" onerror="this.style.display='none'">
+        </div>
         <div class="polaroid-caption">Love Across Miles<br><span style="font-size:0.65rem;">2024</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">[Photo: The Roka]</div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: The Roka]</span>
+          <img src="images/story/4-the-roka.jpg" alt="The Roka" loading="lazy" onerror="this.style.display='none'">
+        </div>
         <div class="polaroid-caption">The Roka<br><span style="font-size:0.65rem;">2025</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">[Photo: The Proposal]</div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: The Proposal]</span>
+          <img src="images/story/5-the-proposal.jpg" alt="The Proposal" loading="lazy" onerror="this.style.display='none'">
+        </div>
         <div class="polaroid-caption">The Proposal<br><span style="font-size:0.65rem;">2026</span></div>
       </div>
     </div>
@@ -2141,18 +2292,19 @@
   </div>
 
   <div class="footer-btns">
-    <a href="https://wa.me/918527565384" class="footer-btn wa" target="_blank">
-      💬 &nbsp; WhatsApp Us
+    <a href="https://wa.me/918800412992" class="footer-btn wa" target="_blank">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12.017 2C6.503 2 2.031 6.472 2.031 11.986c0 1.94.539 3.751 1.475 5.297L2 22l4.887-1.474a9.921 9.921 0 004.926 1.293h.005c5.514 0 9.986-4.472 9.986-9.986C21.804 6.472 17.531 2 12.017 2zm0 18.245a8.246 8.246 0 01-4.19-1.145l-.3-.178-3.096.812.826-3.02-.196-.31a8.235 8.235 0 01-1.264-4.404c0-4.557 3.706-8.263 8.264-8.263 4.556 0 8.263 3.706 8.263 8.263-.004 4.558-3.71 8.245-8.307 8.245z"/>
+      </svg>
+      &nbsp; WhatsApp Us
     </a>
     <a href="#" class="footer-btn bot">
       🎯 &nbsp; Event Assistant
     </a>
   </div>
 
-  <p class="footer-copy">Crafted with love for Gaurav &amp; Suhani — November 2026<br><br>
-  <strong style="color:rgba(201,168,76,0.4);font-size:0.85rem;">⚠️ DATA STORAGE NOTE:</strong><br>
-  <span style="color:rgba(255,255,255,0.3);font-size:0.7rem;">RSVP &amp; Notes are currently stored in your browser's localStorage (not a database).<br>
-  For production use, connect to Formspree, Netlify Forms, Google Sheets API, or a custom backend.</span></p>
+  <p class="footer-copy">Crafted with love for Gaurav &amp; Suhani — November 2026</p>
 </footer>
 
 <script>
@@ -2289,6 +2441,15 @@ const overlay = document.getElementById('inv-overlay');
 const panelL  = document.getElementById('panel-l');
 const panelR  = document.getElementById('panel-r');
 const seal    = document.getElementById('inv-seal');
+const invDear = document.getElementById('inv-dear');
+
+// Personalized "Dear <Name>" greeting via ?name= URL parameter
+// e.g. https://yoursite.com/?name=Rohan Sharma
+(function setGuestGreeting() {
+  const params = new URLSearchParams(window.location.search);
+  const guestName = (params.get('name') || '').trim();
+  invDear.textContent = guestName ? `Dear ${guestName}` : 'Dear Guest';
+})();
 
 seal.addEventListener('click', function () {
   seal.style.transition = 'all 0.4s ease';
@@ -2296,6 +2457,12 @@ seal.addEventListener('click', function () {
   seal.style.opacity    = '0';
   seal.style.pointerEvents = 'none';
   seal.style.animation = 'none';
+
+  invDear.style.opacity = '0';
+
+  // Start music on this very first tap — the earliest moment browsers allow
+  // audio playback, so it plays for essentially the whole visit by default.
+  startBackgroundMusic();
 
   setTimeout(() => {
     panelL.classList.add('open-left');
@@ -2315,6 +2482,47 @@ invBtn.addEventListener('click', function () {
     document.body.style.overflow = 'auto';
   }, 1000);
 });
+
+// ==============================
+// BACKGROUND MUSIC
+// ==============================
+const bgMusic     = document.getElementById('bg-music');
+const musicToggle = document.getElementById('music-toggle');
+const iconSoundOn  = musicToggle.querySelector('.icon-sound-on');
+const iconSoundOff = musicToggle.querySelector('.icon-sound-off');
+let musicPlaying = false;
+
+function updateMusicIcon() {
+  iconSoundOn.style.display  = musicPlaying ? 'block' : 'none';
+  iconSoundOff.style.display = musicPlaying ? 'none' : 'block';
+  musicToggle.setAttribute('aria-pressed', musicPlaying ? 'true' : 'false');
+}
+
+function startBackgroundMusic() {
+  // Browsers only allow audio to start after a user gesture (like the
+  // "Enter the Celebration" click), so this is the earliest point playback can begin.
+  bgMusic.play().then(() => {
+    musicPlaying = true;
+    updateMusicIcon();
+  }).catch(() => {
+    // Track missing or autoplay blocked — leave the toggle in the "off" state
+    musicPlaying = false;
+    updateMusicIcon();
+  });
+}
+
+musicToggle.addEventListener('click', function () {
+  if (musicPlaying) {
+    bgMusic.pause();
+    musicPlaying = false;
+  } else {
+    bgMusic.play().catch(() => {});
+    musicPlaying = true;
+  }
+  updateMusicIcon();
+});
+
+updateMusicIcon();
 
 // ==============================
 // NAVBAR SCROLL
@@ -2770,11 +2978,11 @@ renderNotes();
   let interval = setInterval(() => {
     // Only create if we're past the events section
     if (window.scrollY + window.innerHeight > eventsSectionBottom) {
-      if (Math.random() > 0.6) { // 40% chance to create
+      if (Math.random() > 0.7) { // 30% chance to create
         createFloatingObject();
       }
     }
-  }, 4000); // Every 4 seconds
+  }, 3000); // Every 3 seconds
 
   // Stop creating when user scrolls past story section
   window.addEventListener('scroll', () => {
