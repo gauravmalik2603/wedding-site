@@ -1084,7 +1084,7 @@
       text-align: center;
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 0.9rem;
+      font-size: 0.75rem;
       color: var(--burg);
       transition: color 0.3s ease;
     }
@@ -1392,6 +1392,143 @@
       transform: translateY(-3px);
     }
 
+    .notes-public-group {
+      margin-top: 12px;
+      margin-bottom: 10px;
+    }
+    .notes-checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.98rem;
+      color: #5A3545;
+      font-weight: 600;
+    }
+    .notes-checkbox-label input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--gold);
+      border-radius: 4px;
+    }
+
+    .notes-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(10, 2, 8, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .notes-modal-overlay.open {
+      display: flex;
+    }
+    .notes-modal {
+      width: min(980px, 95vw);
+      max-height: 85vh;
+      background: #fff9e6;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.25);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .notes-modal-header {
+      padding: 28px 28px 14px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(201,168,76,0.12) 0%, transparent 100%);
+    }
+    .notes-modal-header h3 {
+      font-size: 2rem;
+      color: #5C0A1E;
+      margin-bottom: 10px;
+    }
+    .notes-modal-header p {
+      margin: 0;
+      color: #5A3545;
+      font-size: 0.96rem;
+      line-height: 1.6;
+    }
+    .modal-close {
+      position: absolute;
+      right: 18px;
+      top: 18px;
+      background: transparent;
+      border: none;
+      color: #5C0A1E;
+      font-size: 2.3rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .notes-board {
+      padding: 20px 22px 22px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      overflow: auto;
+      flex: 1;
+      min-height: 240px;
+    }
+    .board-loading,
+    .board-empty {
+      width: 100%;
+      text-align: center;
+      color: #5A3545;
+      font-size: 1rem;
+      line-height: 1.7;
+      padding: 32px 0;
+    }
+    .note-postit {
+      position: relative;
+      min-height: 170px;
+      padding: 22px 18px 18px;
+      border-radius: 18px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      background: #fff7d4;
+      transition: transform 0.2s ease;
+    }
+    .note-postit:hover {
+      transform: translateY(-2px);
+    }
+    .note-postit::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(92, 10, 30, 0.15);
+    }
+    .note-postit .postit-from {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #5C0A1E;
+      margin-bottom: 10px;
+    }
+    .note-postit .postit-msg {
+      font-size: 0.98rem;
+      line-height: 1.75;
+      color: #3B1F31;
+      white-space: pre-wrap;
+    }
+
+    .note-status {
+      background: rgba(201,168,76,0.08);
+      border: 1px dashed rgba(201,168,76,0.7);
+      padding: 18px 20px;
+      border-radius: 14px;
+      color: #5A3545;
+      font-size: 0.98rem;
+      margin-top: 24px;
+      text-align: center;
+    }
+
     .hearts-burst {
       position: absolute;
       inset: 0;
@@ -1410,7 +1547,7 @@
       100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.2); }
     }
 
-    .notes-display { margin-top: 42px; }
+    .notes-display { display: none; margin-top: 42px; }
     .note-item {
       background: white;
       border-left: 3px solid var(--gold);
@@ -1648,11 +1785,12 @@
       section { padding: 60px 16px; }
       .section-title { font-size: 1.7rem; }
       .rsvp-card { padding: 26px 18px; }
-      .inv-revealed { padding: 18px 12px; }
+      .inv-scene { width: 92vw; height: 98vw; max-width: 420px; max-height: 760px; }
+      .inv-revealed { padding: 16px 14px; gap: 6px; justify-content: space-between; overflow-y: auto; }
       .inv-name { font-size: 1rem; }
       .inv-amp { font-size: 1.8rem; }
-      .inv-pre { letter-spacing: 1.4px; font-size: 0.42rem; }
-      .inv-enter-btn { padding: 8px 10px; font-size: 0.44rem; letter-spacing: 1.6px; display: inline-flex; align-items: center; justify-content: center; }
+      .inv-pre { letter-spacing: 1.4px; font-size: 0.42rem; line-height: 1.25; }
+      .inv-enter-btn { padding: 8px 10px; font-size: 0.44rem; letter-spacing: 1.6px; display: inline-flex; align-items: center; justify-content: center; max-width: 100%; white-space: normal; width: 100%; }
       .event-card-wrapper { height: 430px; }
       .event-card-front { padding: 26px 18px; }
       .event-gif-wrap { height: 180px; }
@@ -1982,7 +2120,7 @@
           <span class="polaroid-placeholder-text">[Photo: Love at First Sight]</span>
           <img src="images/story/1-first-hello.jpg" alt="The First Hello" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">The First Hello<br><span style="font-size:0.75rem;">2022</span></div>
+        <div class="polaroid-caption">The First Hello<br><span style="font-size:0.65rem;">2022</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
@@ -1990,7 +2128,7 @@
           <span class="polaroid-placeholder-text">[Photo: Love Across Miles]</span>
           <img src="images/story/2-love-across-miles.jpg" alt="Love Across Miles" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">Love Across Miles<br><span style="font-size:0.75rem;">2024</span></div>
+        <div class="polaroid-caption">Love Across Miles<br><span style="font-size:0.65rem;">2024</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
@@ -1998,49 +2136,7 @@
           <span class="polaroid-placeholder-text">[Photo: The Proposal]</span>
           <img src="images/story/4.2-the-roka.jpg" alt="The Proposal" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">The Proposal<br><span style="font-size:0.75rem;">2026</span></div>
-      </div>
-      <div class="polaroid-frame lights-off">
-        <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">
-          <span class="polaroid-placeholder-text">[Photo: The Roka]</span>
-          <img src="images/story/4.1-the-roka.jpg" alt="The Roka" loading="lazy" onerror="this.style.display='none'">
-        </div>
-        <div class="polaroid-caption">The Roka<br><span style="font-size:0.75rem;">2025</span></div>
-      </div>
-      <div class="polaroid-frame lights-off">
-        <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">
-          <span class="polaroid-placeholder-text">[Photo: Engaged forever]</span>
-          <img src="images/story/5-engagement.jpg" alt="Engaged Forever" loading="lazy" onerror="this.style.display='none'">
-        </div>
-        <div class="polaroid-caption">Engaged Forever 💍<br><span style="font-size:0.75rem;">2026</span></div>
-      </div>
-
-      <!-- Duplicate for seamless loop -->
-      <div class="polaroid-frame lights-off">
-        <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">
-          <span class="polaroid-placeholder-text">[Photo: Love at First Sight]</span>
-          <img src="images/story/1-first-hello.jpg" alt="The First Hello" loading="lazy" onerror="this.style.display='none'">
-        </div>
-        <div class="polaroid-caption">The First Hello<br><span style="font-size:0.75rem;">2022</span></div>
-      </div>
-      <div class="polaroid-frame lights-off">
-        <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">
-          <span class="polaroid-placeholder-text">[Photo: Love Across Miles]</span>
-          <img src="images/story/2-love-across-miles.jpg" alt="Love Across Miles" loading="lazy" onerror="this.style.display='none'">
-        </div>
-        <div class="polaroid-caption">Love Across Miles<br><span style="font-size:0.75rem;">2024</span></div>
-      </div>
-      <div class="polaroid-frame lights-off">
-        <div class="polaroid-string-pin"></div>
-        <div class="polaroid-image">
-          <span class="polaroid-placeholder-text">[Photo: The Proposal]</span>
-          <img src="images/story/4.2-the-roka.jpg" alt="The Proposal" loading="lazy" onerror="this.style.display='none'">
-        </div>
-        <div class="polaroid-caption">The Proposal<br><span style="font-size:0.75rem;">2026</span></div>
+        <div class="polaroid-caption">The Proposal<br><span style="font-size:0.65rem;">2026</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
@@ -2056,7 +2152,49 @@
           <span class="polaroid-placeholder-text">[Photo: Engaged forever]</span>
           <img src="images/story/5-engagement.jpg" alt="Engaged Forever" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">Engaged Forever 💍<br><span style="font-size:0.75rem;">2026</span></div>
+        <div class="polaroid-caption">Engaged Forever 💍<br><span style="font-size:0.65rem;">2026</span></div>
+      </div>
+
+      <!-- Duplicate for seamless loop -->
+      <div class="polaroid-frame lights-off">
+        <div class="polaroid-string-pin"></div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: Love at First Sight]</span>
+          <img src="images/story/1-first-hello.jpg" alt="The First Hello" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="polaroid-caption">The First Hello<br><span style="font-size:0.65rem;">2022</span></div>
+      </div>
+      <div class="polaroid-frame lights-off">
+        <div class="polaroid-string-pin"></div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: Love Across Miles]</span>
+          <img src="images/story/2-love-across-miles.jpg" alt="Love Across Miles" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="polaroid-caption">Love Across Miles<br><span style="font-size:0.65rem;">2024</span></div>
+      </div>
+      <div class="polaroid-frame lights-off">
+        <div class="polaroid-string-pin"></div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: The Proposal]</span>
+          <img src="images/story/4.2-the-roka.jpg" alt="The Proposal" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="polaroid-caption">The Proposal<br><span style="font-size:0.65rem;">2026</span></div>
+      </div>
+      <div class="polaroid-frame lights-off">
+        <div class="polaroid-string-pin"></div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: The Roka]</span>
+          <img src="images/story/4.1-the-roka.jpg" alt="The Roka" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="polaroid-caption">The Roka<br><span style="font-size:0.65rem;">2025</span></div>
+      </div>
+      <div class="polaroid-frame lights-off">
+        <div class="polaroid-string-pin"></div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: Engaged forever]</span>
+          <img src="images/story/5-engagement.jpg" alt="Engaged Forever" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="polaroid-caption">Engaged Forever 💍<br><span style="font-size:0.65rem;">2026</span></div>
       </div>
 
 <!-- Duplicate for seamless loop -->
@@ -2066,7 +2204,7 @@
           <span class="polaroid-placeholder-text">[Photo: Love at First Sight]</span>
           <img src="images/story/1-first-hello.jpg" alt="The First Hello" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">The First Hello<br><span style="font-size:0.75rem;">2022</span></div>
+        <div class="polaroid-caption">The First Hello<br><span style="font-size:0.65rem;">2022</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
@@ -2074,7 +2212,7 @@
           <span class="polaroid-placeholder-text">[Photo: Love Across Miles]</span>
           <img src="images/story/2-love-across-miles.jpg" alt="Love Across Miles" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">Love Across Miles<br><span style="font-size:0.75rem;">2024</span></div>
+        <div class="polaroid-caption">Love Across Miles<br><span style="font-size:0.65rem;">2024</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
@@ -2082,7 +2220,7 @@
           <span class="polaroid-placeholder-text">[Photo: The Proposal]</span>
           <img src="images/story/4.2-the-roka.jpg" alt="The Proposal" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">The Proposal<br><span style="font-size:0.75rem;">2026</span></div>
+        <div class="polaroid-caption">The Proposal<br><span style="font-size:0.65rem;">2026</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
@@ -2090,7 +2228,7 @@
           <span class="polaroid-placeholder-text">[Photo: The Roka]</span>
           <img src="images/story/4.1-the-roka.jpg" alt="The Roka" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">The Roka<br><span style="font-size:0.75rem;">2025</span></div>
+        <div class="polaroid-caption">The Roka<br><span style="font-size:0.65rem;">2025</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
@@ -2098,7 +2236,7 @@
           <span class="polaroid-placeholder-text">[Photo: Engaged forever]</span>
           <img src="images/story/5-engagement.jpg" alt="Engaged Forever" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">Engaged Forever 💍<br><span style="font-size:0.75rem;">2026</span></div>
+        <div class="polaroid-caption">Engaged Forever 💍<br><span style="font-size:0.65rem;">2026</span></div>
       </div>
     </div>
   </div>
@@ -2289,10 +2427,27 @@
       <div class="form-group">
         <textarea class="notes-textarea-light" id="n-msg" placeholder="Write your message, wish, or a blessing for Gaurav &amp; Suhani..."></textarea>
       </div>
+      <div class="form-group notes-public-group">
+        <label class="notes-checkbox-label">
+          <input type="checkbox" id="n-public">
+          <span>Make this wish visible on the public wall</span>
+        </label>
+      </div>
       <button class="notes-submit" id="notes-btn">Send Your Wishes 💌</button>
     </div>
 
     <div class="notes-display" id="notes-display"></div>
+  </div>
+
+  <div class="notes-modal-overlay" id="notes-modal" aria-hidden="true">
+    <div class="notes-modal" role="dialog" aria-modal="true" aria-labelledby="notes-modal-title">
+      <button class="modal-close" id="notes-modal-close" aria-label="Close wishes board">×</button>
+      <div class="notes-modal-header">
+        <h3 id="notes-modal-title">Grateful for your wishes!</h3>
+        <!-- <p>Only wishes marked as public appear here. Scroll to view more notes.</p> -->
+      </div>
+      <div class="notes-board" id="notes-board"></div>
+    </div>
   </div>
 </section>
 
@@ -2330,8 +2485,33 @@
 // SUPABASE SETUP
 // ==============================
 // 1. Create a free project at https://supabase.com
-// 2. Create "rsvps" and "wishes" tables (see README / setup instructions)
-// 3. Go to Project Settings -> API and paste your values below
+// 2. Create "rsvps" and "wishes" tables
+// 3. In Supabase SQL editor, run the following to create the wishes table:
+//
+//    CREATE TABLE public.wishes (
+//      id BIGSERIAL PRIMARY KEY,
+//      name TEXT NOT NULL,
+//      message TEXT NOT NULL,
+//      public BOOLEAN NOT NULL DEFAULT FALSE,
+//      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+//    );
+//
+// 4. If you also want a sample RSVP table, use:
+//
+//    CREATE TABLE public.rsvps (
+//      id BIGSERIAL PRIMARY KEY,
+//      full_name TEXT NOT NULL,
+//      phone_numbers TEXT,
+//      guests INT,
+//      arrive_date DATE,
+//      arrive_time TEXT,
+//      travel_mode TEXT,
+//      message TEXT,
+//      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+//    );
+//
+// 5. Make sure the `public` column is a boolean so only public notes appear on the board.
+// 6. After creating the table, enable row level security and add a policy for anonymous inserts if needed.
 const SUPABASE_URL = 'https://xgamplidionlkligaxcw.supabase.co';           // e.g. https://xxxxxxxxxxxx.supabase.co
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhnYW1wbGlkaW9ubGtsaWdheGN3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MDA3NDEsImV4cCI6MjA5OTI3Njc0MX0.MMLuQOd0lWKZaRxK2Opjut9d2hX_48uDMDc4xaKeTTI';  // the public "anon" key, NOT the service_role key
 
@@ -2893,6 +3073,7 @@ document.getElementById('rsvp-btn').addEventListener('click', async function () 
 // ==============================
 function renderNotesFromList(notes) {
   const el = document.getElementById('notes-display');
+  if (!el) return;
   el.innerHTML = notes.length === 0 ? '' : notes.map(n => `
     <div class="note-item">
       <div class="note-from">${escHtml(n.name || 'A Dear Guest')}</div>
@@ -2928,16 +3109,78 @@ function escHtml(str) {
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-document.getElementById('notes-btn').addEventListener('click', async function () {
-  const name = document.getElementById('n-name').value.trim();
-  const msg  = document.getElementById('n-msg').value.trim();
-  if (!msg) { 
-    document.getElementById('n-msg').style.borderColor = '#E87A7A'; 
-    setTimeout(() => document.getElementById('n-msg').style.borderColor = '', 2500); 
-    return; 
+function openNotesModal() {
+  const modal = document.getElementById('notes-modal');
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+function closeNotesModal() {
+  const modal = document.getElementById('notes-modal');
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+function renderPublicBoard(notes) {
+  const board = document.getElementById('notes-board');
+  if (!board) return;
+
+  const publicNotes = notes.filter(n => n.public === true || n.public === 'true');
+  if (publicNotes.length === 0) {
+    board.innerHTML = '<div class="board-empty">No public wishes are available yet. Once a guest marks their note as public, it will appear here.</div>';
+    return;
   }
 
-  // Heart burst animation
+  board.innerHTML = publicNotes.map(n => `
+    <div class="note-postit" style="background: ${postItColor(n.id || n.name)};">
+      <div class="postit-from">${escHtml(n.name || 'A Dear Guest')}</div>
+      <div class="postit-msg">${escHtml(n.msg)}</div>
+    </div>
+  `).join('');
+}
+
+function postItColor(seed) {
+  const colors = ['#fff7d4', '#fdefd9', '#e9f6d9', '#dfe8ff', '#ffe6f0'];
+  const hash = String(seed).split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+  return colors[hash % colors.length];
+}
+
+async function loadPublicNotes() {
+  let notes = [];
+  if (!sbClient) {
+    notes = JSON.parse(localStorage.getItem('gs-notes') || '[]');
+  } else {
+    const { data, error } = await sbClient
+      .from('wishes')
+      .select('id, name, message, public, created_at')
+      .order('created_at', { ascending: false });
+    if (error) {
+      console.error('Supabase wishes fetch failed for public board:', error);
+      notes = JSON.parse(localStorage.getItem('gs-notes') || '[]');
+    } else {
+      notes = data.map(d => ({ id: d.id, name: d.name, msg: d.message, public: d.public }));
+    }
+  }
+  renderPublicBoard(notes);
+}
+
+document.getElementById('notes-modal-close').addEventListener('click', closeNotesModal);
+document.getElementById('notes-modal').addEventListener('click', function (event) {
+  if (event.target === this) {
+    closeNotesModal();
+  }
+});
+
+document.getElementById('notes-btn').addEventListener('click', async function handleNoteSubmit() {
+  const name = document.getElementById('n-name').value.trim();
+  const msg  = document.getElementById('n-msg').value.trim();
+  const isPublic = document.getElementById('n-public').checked;
+  if (!msg) {
+    document.getElementById('n-msg').style.borderColor = '#E87A7A';
+    setTimeout(() => document.getElementById('n-msg').style.borderColor = '', 2500);
+    return;
+  }
+
   const burst = document.getElementById('hearts-burst');
   for (let i = 0; i < 15; i++) {
     const heart = document.createElement('div');
@@ -2955,7 +3198,7 @@ document.getElementById('notes-btn').addEventListener('click', async function ()
   let saved = false;
 
   if (sbClient) {
-    const { error } = await sbClient.from('wishes').insert({ name: noteName, message: msg });
+    const { error } = await sbClient.from('wishes').insert({ name: noteName, message: msg, public: isPublic });
     if (error) {
       console.error('Supabase wishes insert failed, falling back to local storage:', error);
     } else {
@@ -2965,14 +3208,30 @@ document.getElementById('notes-btn').addEventListener('click', async function ()
 
   if (!saved) {
     const notes = JSON.parse(localStorage.getItem('gs-notes') || '[]');
-    notes.unshift({ name: noteName, msg, ts: new Date().toISOString() });
+    notes.unshift({ name: noteName, msg, public: isPublic, ts: new Date().toISOString() });
     localStorage.setItem('gs-notes', JSON.stringify(notes));
   }
 
   document.getElementById('n-name').value = '';
   document.getElementById('n-msg').value  = '';
+  document.getElementById('n-public').checked = false;
+
+  const button = document.getElementById('notes-btn');
+  button.textContent = 'View All Wishes ✨';
+  button.id = 'notes-view-btn';
+
+  button.addEventListener('click', function () {
+    loadPublicNotes();
+    openNotesModal();
+  });
 
   renderNotes();
+});
+
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape' && document.getElementById('notes-modal').classList.contains('open')) {
+    closeNotesModal();
+  }
 });
 
 renderNotes();
