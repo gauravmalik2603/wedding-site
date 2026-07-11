@@ -104,7 +104,8 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 45px 32px;
+      padding: 36px 22px;
+      overflow: hidden;
       text-align: center;
       box-shadow: 0 0 100px rgba(201,168,76,0.25), 0 40px 120px rgba(0,0,0,0.9);
       border-radius: 2px;
@@ -123,7 +124,7 @@
 
     .inv-pre {
       font-family: 'Cinzel', serif;
-      font-size: 0.52rem;
+      font-size: 0.48rem;
       letter-spacing: 5px;
       color: var(--gold);
       text-transform: uppercase;
@@ -132,7 +133,7 @@
     .inv-name {
       font-family: 'Cinzel Decorative', serif;
       color: var(--gold-light);
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       line-height: 1.3;
       text-shadow: 0 0 30px rgba(201,168,76,0.5);
     }
@@ -147,7 +148,7 @@
     .inv-amp {
       font-family: 'Great Vibes', cursive;
       color: var(--gold);
-      font-size: 3rem;
+      font-size: 2.4rem;
       line-height: 1;
       margin: 4px 0;
     }
@@ -174,13 +175,13 @@
 
     .inv-enter-btn {
       margin-top: 16px;
-      padding: 11px 32px;
+      padding: 10px 22px;
       background: transparent;
       border: 1.5px solid var(--gold);
       color: var(--gold);
       font-family: 'Cinzel', serif;
-      font-size: 0.58rem;
-      letter-spacing: 5px;
+      font-size: 0.52rem;
+      letter-spacing: 3px;
       text-transform: uppercase;
       cursor: pointer;
       transition: all 0.4s;
@@ -189,6 +190,10 @@
       opacity: 0;
       transform: translateY(10px);
       pointer-events: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
     }
     .inv-enter-btn.visible {
       opacity: 1;
@@ -299,6 +304,13 @@
       text-align: center;
       pointer-events: none;
       transition: opacity 0.5s ease;
+    }
+
+    /* Ensure the invite button text is vertically centered on small devices */
+    #inv-overlay .inv-enter-btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
     }
 
     /* ============================
@@ -582,6 +594,7 @@
       perspective: 1200px;
       height: 480px;
       cursor: pointer;
+      position: relative;
     }
     .event-card-inner {
       position: relative;
@@ -608,6 +621,21 @@
       padding: 44px 32px;
       text-align: center;
       overflow: hidden;
+      transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+    }
+    .event-card-wrapper:hover .event-card-front,
+    .event-card-wrapper:focus-within .event-card-front {
+      box-shadow: inset 0 0 0 1px rgba(201,168,76,0.25), 0 12px 28px rgba(0,0,0,0.16);
+      border-color: rgba(201,168,76,0.45);
+      transform: translateY(-2px);
+    }
+    .event-card-wrapper:hover .event-card-front::after,
+    .event-card-wrapper:focus-within .event-card-front::after {
+      animation: event-glow 1.6s ease-in-out infinite;
+    }
+    @keyframes event-glow {
+      0%, 100% { opacity: 0.6; transform: scaleX(0.95); }
+      50% { opacity: 1; transform: scaleX(1); }
     }
     .event-card-front::before {
       content: '';
@@ -669,6 +697,14 @@
       padding: 12px 20px;
       background: rgba(201,168,76,0.09);
       border: 1px solid rgba(201,168,76,0.2);
+      box-shadow: 0 0 0 1px rgba(201,168,76,0.04);
+      transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    }
+    .event-card-wrapper:hover .event-dc,
+    .event-card-wrapper:focus-within .event-dc {
+      border-color: rgba(201,168,76,0.35);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+      transform: translateY(-1px);
     }
     .dc-lbl {
       font-family: 'Cinzel', serif;
@@ -710,12 +746,21 @@
       overflow: hidden;
     }
 
-    .event-gif-wrap img.event-gif {
+    .event-gif-wrap .event-gif {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      background: #000;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: block;
+    }
+
+
+    .event-card-wrapper.flipped .event-gif-wrap {
+      height: 460px;
     }
 
     .event-gif-placeholder {
@@ -1554,78 +1599,6 @@
     }
 
     /* ============================
-       FLOATING ANIMATIONS
-    ============================ */
-    .floating-object {
-      position: fixed;
-      font-size: 1.5rem;
-      pointer-events: none;
-      z-index: 15;
-      opacity: 0.6;
-      animation: float-around 8s linear infinite;
-    }
-
-    @keyframes float-around {
-      0% {
-        transform: translateX(0) translateY(0) rotate(0deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 0.6;
-      }
-      90% {
-        opacity: 0.6;
-      }
-      100% {
-        transform: translateX(-100vw) translateY(-100px) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    .float-bird-1 {
-      animation: float-bird-1 15s linear infinite;
-    }
-    @keyframes float-bird-1 {
-      0% { left: -50px; top: 200px; opacity: 0; transform: scaleX(1); }
-      5% { opacity: 0.6; }
-      50% { top: 150px; }
-      95% { opacity: 0.6; }
-      100% { right: -50px; top: 180px; opacity: 0; transform: scaleX(1); }
-    }
-
-    .float-bird-2 {
-      animation: float-bird-2 18s linear infinite;
-      animation-delay: 6s;
-    }
-    @keyframes float-bird-2 {
-      0% { right: -50px; top: 300px; opacity: 0; transform: scaleX(-1); }
-      5% { opacity: 0.5; }
-      50% { top: 250px; }
-      95% { opacity: 0.5; }
-      100% { left: -50px; top: 280px; opacity: 0; transform: scaleX(-1); }
-    }
-
-    .float-flower-1 {
-      animation: float-flower 12s linear infinite;
-      animation-delay: 3s;
-    }
-    @keyframes float-flower {
-      0% { left: 10%; top: -30px; opacity: 0; }
-      5% { opacity: 0.5; }
-      50% { top: 150px; left: 40%; }
-      95% { opacity: 0.5; }
-      100% { left: 70%; top: 400px; opacity: 0; }
-    }
-
-    .float-butterfly {
-      animation: flutter 4s ease-in-out infinite;
-    }
-    @keyframes flutter {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(10deg); }
-    }
-
-    /* ============================
        RESPONSIVE
     ============================ */
     @media (max-width: 768px) {
@@ -1635,14 +1608,17 @@
       .form-row { grid-template-columns: 1fr; }
       .rsvp-card { padding: 32px 24px; }
       .inv-scene { width: 90vw; height: 78vw; max-width: 390px; max-height: 560px; }
-      .inv-revealed { padding: 32px 20px; gap: 6px; }
-      .inv-name { font-size: 1.15rem; }
-      .inv-parents { font-size: 0.65rem; }
-      .inv-amp { font-size: 2.6rem; }
-      .inv-enter-btn { padding: 10px 16px; font-size: 0.5rem; letter-spacing: 2.5px; max-width: 100%; white-space: normal; line-height: 1.6; }
+      .inv-revealed { padding: 28px 18px; gap: 6px; }
+      .inv-name { font-size: 1.05rem; }
+      .inv-parents { font-size: 0.62rem; }
+      .inv-amp { font-size: 2.2rem; }
+      .inv-pre { letter-spacing: 2px; }
+      .inv-enter-btn { padding: 9px 14px; font-size: 0.48rem; letter-spacing: 2px; max-width: 100%; white-space: normal; line-height: 1.4; display: inline-flex; align-items: center; justify-content: center; }
       .countdown { gap: 14px; }
-      .cd-num { font-size: 2rem; min-width: 55px; }
+      .cd-num { font-size: 2rem; min-width: 50px; }
       .section-title { font-size: 2rem; }
+      .hero-cta { padding: 12px 36px; letter-spacing: 5px; font-size: 0.7rem; }
+      .hero-content { max-width: 92vw; }
       .section-label { font-size: 0.65rem; }
       .story-item-card { width: 95vw; }
 
@@ -1657,13 +1633,12 @@
       .event-dc { margin-top: 14px; padding: 9px 14px; }
       .event-card-back { padding: 20px; }
       .event-gif-wrap { height: 210px; margin-bottom: 14px; }
-
       /* How to Reach */
-      .reach-grid { gap: 16px; margin-bottom: 36px; }
-      .reach-card { padding: 22px 16px; }
-      .reach-icon { font-size: 2rem; margin-bottom: 10px; }
-      .reach-title { font-size: 0.6rem; margin-bottom: 10px; }
-      .reach-body { font-size: 0.85rem; line-height: 1.8; }
+      .reach-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 36px; }
+      .reach-card { padding: 18px 12px; }
+      .reach-icon { font-size: 1.7rem; margin-bottom: 8px; }
+      .reach-title { font-size: 0.52rem; letter-spacing: 2px; margin-bottom: 8px; }
+      .reach-body { font-size: 0.76rem; line-height: 1.65; }
       .map-wrap iframe { height: 260px; }
 
       footer { background-attachment: scroll; }
@@ -1673,14 +1648,21 @@
       section { padding: 60px 16px; }
       .section-title { font-size: 1.7rem; }
       .rsvp-card { padding: 26px 18px; }
-      .inv-revealed { padding: 26px 14px; }
-      .inv-enter-btn { padding: 9px 12px; font-size: 0.46rem; letter-spacing: 2px; }
+      .inv-revealed { padding: 18px 12px; }
+      .inv-name { font-size: 1rem; }
+      .inv-amp { font-size: 1.8rem; }
+      .inv-pre { letter-spacing: 1.4px; font-size: 0.42rem; }
+      .inv-enter-btn { padding: 8px 10px; font-size: 0.44rem; letter-spacing: 1.6px; display: inline-flex; align-items: center; justify-content: center; }
       .event-card-wrapper { height: 430px; }
       .event-card-front { padding: 26px 18px; }
       .event-gif-wrap { height: 180px; }
-      .reach-card { padding: 18px 14px; }
+      .event-card-wrapper.flipped .event-gif-wrap { height: 360px; }
+      .reach-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .reach-card { padding: 16px 10px; }
       .polaroid-frame { width: 160px; height: 220px; }
       .polaroid-image { height: 135px; }
+      .hero-cta { padding: 10px 20px; letter-spacing: 4px; font-size: 0.66rem; }
+      .cd-num { min-width: 40px; }
     }
   </style>
 </head>
@@ -1710,7 +1692,7 @@
       <p class="inv-date">Request the pleasure of your company</p>
       <p class="inv-date">20 &ndash; 21 November 2026</p>
       <p class="inv-location">Rampur, Uttar Pradesh</p>
-      <button class="inv-enter-btn" id="inv-btn">Enter the Celebration ✦</button>
+      <button class="inv-enter-btn" id="inv-btn" style="display:inline-flex;align-items:center;justify-content:center;line-height:1;">Enter the Celebration ✦</button>
     </div>
 
     <div class="inv-panel inv-panel-left" id="panel-l">
@@ -1859,8 +1841,7 @@
         </div>
         <div class="event-card-back">
           <div class="event-gif-wrap">
-            <span class="event-gif-placeholder">✨ Add your Sangeet GIF here</span>
-            <img class="event-gif" src="media/events/sangeet.png" alt="Sangeet celebration" loading="lazy" onerror="this.style.display='none'">
+            <img class="event-gif" src="media/events/sangeet1.gif" alt="Sangeet celebration" loading="lazy">
           </div>
           <p class="back-title">Shaam Shaandaar ✨</p>
           <button class="back-btn" onclick="flipCard(this)">← Back to Card</button>
@@ -1892,8 +1873,7 @@
         </div>
         <div class="event-card-back">
           <div class="event-gif-wrap">
-            <span class="event-gif-placeholder">🌼 Add your Haldi GIF here</span>
-            <img class="event-gif" src="media/events/haldi.png" alt="Haldi celebration" loading="lazy" onerror="this.style.display='none'">
+            <img class="event-gif" src="media/events/haldi1.gif" alt="Haldi celebration" loading="lazy">
           </div>
           <p class="back-title">Hues of Haldi 🌸</p>
           <button class="back-btn" onclick="flipCard(this)">← Back to Card</button>
@@ -1925,8 +1905,7 @@
         </div>
         <div class="event-card-back">
           <div class="event-gif-wrap">
-            <span class="event-gif-placeholder">👰🤵 Add your Wedding GIF here</span>
-            <img class="event-gif" src="media/events/wedding.png" alt="Wedding ceremony" loading="lazy" onerror="this.style.display='none'">
+            <img class="event-gif" src="media/events/wedding1.png" alt="Wedding ceremony" loading="lazy">
           </div>
           <p class="back-title">Gaurav ki Baaraat 🌺</p>
           <button class="back-btn" onclick="flipCard(this)">← Back to Card</button>
@@ -1936,9 +1915,6 @@
 
   </div>
 </section>
-
-<!-- FLOATING ANIMATIONS -->
-<div id="floating-container" style="position: relative; height: 0; width: 100%; pointer-events: none;"></div>
 
 <!-- OUR STORY -->
 <section id="story">
@@ -2038,7 +2014,7 @@
           <span class="polaroid-placeholder-text">[Photo: Engaged forever]</span>
           <img src="images/story/5-engagement.jpg" alt="Engaged Forever" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">Engaged Forever 💍<br><span style="font-size:0.65rem;">2023</span></div>
+        <div class="polaroid-caption">Engaged Forever 💍<br><span style="font-size:0.65rem;">2026</span></div>
       </div>
 
       <!-- Duplicate for seamless loop -->
@@ -2080,7 +2056,7 @@
           <span class="polaroid-placeholder-text">[Photo: Engaged forever]</span>
           <img src="images/story/5-engagement.jpg" alt="Engaged Forever" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">Engaged Forever 💍<br><span style="font-size:0.65rem;">2023</span></div>
+        <div class="polaroid-caption">Engaged Forever 💍<br><span style="font-size:0.65rem;">2026</span></div>
       </div>
 
 <!-- Duplicate for seamless loop -->
@@ -2122,7 +2098,7 @@
           <span class="polaroid-placeholder-text">[Photo: Engaged forever]</span>
           <img src="images/story/5-engagement.jpg" alt="Engaged Forever" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">Engaged Forever 💍<br><span style="font-size:0.65rem;">2023</span></div>
+        <div class="polaroid-caption">Engaged Forever 💍<br><span style="font-size:0.65rem;">2026</span></div>
       </div>
     </div>
   </div>
@@ -2608,18 +2584,48 @@ const celebrationCtx = celebrationCanvas.getContext('2d');
 celebrationCanvas.width = window.innerWidth;
 celebrationCanvas.height = window.innerHeight;
 
+function playEventVideo(wrapper) {
+  const media = wrapper.querySelector('.event-gif');
+  if (!media || media.tagName !== 'VIDEO') return;
+  media.currentTime = 0;
+  media.play().catch(() => {});
+}
+
+function pauseEventVideo(wrapper) {
+  const media = wrapper.querySelector('.event-gif');
+  if (!media || media.tagName !== 'VIDEO') return;
+  media.pause();
+}
+
 document.querySelectorAll('.event-card-wrapper').forEach(wrapper => {
   wrapper.addEventListener('click', function(e) {
-    if (e.target.classList.contains('back-btn') || e.target.tagName === 'VIDEO') return;
+    if (e.target.classList.contains('back-btn')) return;
+    if (e.target.tagName === 'VIDEO') {
+      e.stopPropagation();
+      playEventVideo(this);
+      return;
+    }
     if (!this.classList.contains('flipped')) {
       this.classList.add('flipped');
+      // enlarge media area for portrait assets when flipped
+      const gifWrap = this.querySelector('.event-gif-wrap');
+      if (gifWrap) {
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        gifWrap.style.height = vw <= 480 ? '360px' : '460px';
+      }
+      playEventVideo(this);
       triggerCelebration(this.dataset.event);
     }
   });
 });
 
 function flipCard(btn) {
-  btn.closest('.event-card-wrapper').classList.remove('flipped');
+  const wrapper = btn.closest('.event-card-wrapper');
+  wrapper.classList.remove('flipped');
+  // restore original media height
+  const gifWrap = wrapper.querySelector('.event-gif-wrap');
+  if (gifWrap) gifWrap.style.height = '';
+  pauseEventVideo(wrapper);
 }
 
 function triggerCelebration(eventType) {
@@ -2971,69 +2977,6 @@ document.getElementById('notes-btn').addEventListener('click', async function ()
 
 renderNotes();
 
-// ==============================
-// FLOATING ANIMATIONS
-// ==============================
-(function initFloatingAnimations() {
-  const container = document.getElementById('floating-container');
-  const eventsSectionBottom = document.getElementById('events').offsetTop + document.getElementById('events').offsetHeight;
-  
-  // Get viewport height to position the floating container
-  function createFloatingObject() {
-    const objects = [
-      { emoji: '🐦', delay: 0, duration: 15 },
-      { emoji: '🌸', delay: 3, duration: 12 },
-      { emoji: '🦋', delay: 6, duration: 18 },
-      { emoji: '🐦', delay: 9, duration: 16 },
-    ];
-
-    // Randomly pick objects but keep it to 1-2 at a time
-    const randomIndex = Math.floor(Math.random() * objects.length);
-    const obj = objects[randomIndex];
-
-    const element = document.createElement('div');
-    element.className = 'floating-object';
-    element.textContent = obj.emoji;
-    element.style.top = (eventsSectionBottom + Math.random() * 200) + 'px';
-    element.style.left = Math.random() * 100 + '%';
-    element.style.animationDuration = obj.duration + 's';
-    element.style.animationDelay = obj.delay + 's';
-    
-    if (obj.emoji === '🐦') {
-      element.classList.add(Math.random() > 0.5 ? 'float-bird-1' : 'float-bird-2');
-    } else if (obj.emoji === '🌸') {
-      element.classList.add('float-flower-1');
-    } else if (obj.emoji === '🦋') {
-      element.classList.add('float-butterfly');
-      element.style.animationDelay = Math.random() * 5 + 's';
-    }
-
-    container.appendChild(element);
-
-    // Remove element after animation completes
-    setTimeout(() => {
-      element.remove();
-    }, (obj.duration + obj.delay) * 1000);
-  }
-
-  // Create floating objects periodically
-  let interval = setInterval(() => {
-    // Only create if we're past the events section
-    if (window.scrollY + window.innerHeight > eventsSectionBottom) {
-      if (Math.random() > 0.7) { // 30% chance to create
-        createFloatingObject();
-      }
-    }
-  }, 3000); // Every 3 seconds
-
-  // Stop creating when user scrolls past story section
-  window.addEventListener('scroll', () => {
-    const storySection = document.getElementById('story');
-    if (window.scrollY > storySection.offsetTop) {
-      clearInterval(interval);
-    }
-  });
-})();
 </script>
 
 </body>
