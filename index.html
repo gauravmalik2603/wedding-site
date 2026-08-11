@@ -176,11 +176,11 @@
     .inv-enter-btn {
       margin-top: 16px;
       padding: 13px 30px;
-      background: transparent;
+      background: var(--gold);
       border: 1.5px solid var(--gold);
-      color: var(--gold);
+      color: var(--burg-deep);
       font-family: 'Cinzel', serif;
-      font-size: 0.74rem;
+      font-size: 0.8rem;
       letter-spacing: 3px;
       text-transform: uppercase;
       cursor: pointer;
@@ -206,13 +206,16 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: var(--gold);
-      transform: translateX(-100%);
+      background: transparent;
+      transform: translateX(0);
       transition: transform 0.4s;
       z-index: -1;
     }
+    .inv-enter-btn:hover {
+      background: transparent;
+      color: var(--gold);
+    }
     .inv-enter-btn:hover::before { transform: translateX(0); }
-    .inv-enter-btn:hover { color: var(--burg-deep); }
 
     .inv-panel {
       position: absolute;
@@ -1975,7 +1978,7 @@
       <p class="inv-date">Request the pleasure of your company</p>
       <p class="inv-date">20 &ndash; 21 November 2026</p>
       <p class="inv-location">Rampur, Uttar Pradesh</p>
-      <button class="inv-enter-btn" id="inv-btn" style="display:inline-flex;align-items:center;justify-content:center;line-height:1;">Enter the Celebration ✦</button>
+      <button class="inv-enter-btn" id="inv-btn" style="display:inline-flex;align-items:center;justify-content:center;line-height:1;">✦ Enter the Celebration ✦</button>
     </div>
 
     <div class="inv-panel inv-panel-left" id="panel-l">
@@ -2152,7 +2155,7 @@
           </div>
           <div class="event-dc">
             <span class="dc-lbl">Dress Code</span>
-            <span class="dc-val">All Bright Colors 🌈</span>
+            <span class="dc-val">Vibrant Color Palette 🌈</span>
           </div>
           <div class="event-card-hint"><span class="event-card-hint-icon">↻</span> Tap to reveal</div>
         </div>
@@ -2185,7 +2188,7 @@
           </div>
           <div class="event-dc">
             <span class="dc-lbl">Dress Code</span>
-            <span class="dc-val">Traditional Pastels 🌸</span>
+            <span class="dc-val">Royal Traditional Couture 🌸</span>
           </div>
           <div class="event-card-hint"><span class="event-card-hint-icon">↻</span> Tap to reveal</div>
         </div>
@@ -2282,9 +2285,9 @@
         <div class="polaroid-string-pin"></div>
         <div class="polaroid-image">
           <span class="polaroid-placeholder-text">[Photo: The Proposal]</span>
-          <img src="images/story/4.2-the-roka.jpg" alt="The Proposal" loading="lazy" onerror="this.style.display='none'">
+          <img src="images/story/3-the-proposal.jpg" alt="The Proposal" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">The Proposal<br><span style="font-size:0.65rem;">2026</span></div>
+        <div class="polaroid-caption">The Proposal<br><span style="font-size:0.65rem;">2025</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
@@ -2293,6 +2296,14 @@
           <img src="images/story/4.1-the-roka.jpg" alt="The Roka" loading="lazy" onerror="this.style.display='none'">
         </div>
         <div class="polaroid-caption">The Roka<br><span style="font-size:0.65rem;">2025</span></div>
+      </div>
+      <div class="polaroid-frame lights-off">
+        <div class="polaroid-string-pin"></div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: It's Official!!]</span>
+          <img src="images/story/4.2-the-roka.jpg" alt="It's Official!!" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="polaroid-caption">It's Official!!<br><span style="font-size:0.65rem;">2026</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
@@ -2324,9 +2335,9 @@
         <div class="polaroid-string-pin"></div>
         <div class="polaroid-image">
           <span class="polaroid-placeholder-text">[Photo: The Proposal]</span>
-          <img src="images/story/4.2-the-roka.jpg" alt="The Proposal" loading="lazy" onerror="this.style.display='none'">
+          <img src="images/story/3-the-proposal.jpg" alt="The Proposal" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">The Proposal<br><span style="font-size:0.65rem;">2026</span></div>
+        <div class="polaroid-caption">The Proposal<br><span style="font-size:0.65rem;">2025</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
@@ -2335,6 +2346,14 @@
           <img src="images/story/4.1-the-roka.jpg" alt="The Roka" loading="lazy" onerror="this.style.display='none'">
         </div>
         <div class="polaroid-caption">The Roka<br><span style="font-size:0.65rem;">2025</span></div>
+      </div>
+      <div class="polaroid-frame lights-off">
+        <div class="polaroid-string-pin"></div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: It's Official!!]</span>
+          <img src="images/story/4.2-the-roka.jpg" alt="It's Official!!" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="polaroid-caption">It's Official!!<br><span style="font-size:0.65rem;">2026</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
@@ -2366,9 +2385,9 @@
         <div class="polaroid-string-pin"></div>
         <div class="polaroid-image">
           <span class="polaroid-placeholder-text">[Photo: The Proposal]</span>
-          <img src="images/story/4.2-the-roka.jpg" alt="The Proposal" loading="lazy" onerror="this.style.display='none'">
+          <img src="images/story/3-the-proposal.jpg" alt="The Proposal" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <div class="polaroid-caption">The Proposal<br><span style="font-size:0.65rem;">2026</span></div>
+        <div class="polaroid-caption">The Proposal<br><span style="font-size:0.65rem;">2025</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
@@ -2377,6 +2396,14 @@
           <img src="images/story/4.1-the-roka.jpg" alt="The Roka" loading="lazy" onerror="this.style.display='none'">
         </div>
         <div class="polaroid-caption">The Roka<br><span style="font-size:0.65rem;">2025</span></div>
+      </div>
+      <div class="polaroid-frame lights-off">
+        <div class="polaroid-string-pin"></div>
+        <div class="polaroid-image">
+          <span class="polaroid-placeholder-text">[Photo: It's Official!!]</span>
+          <img src="images/story/4.2-the-roka.jpg" alt="It's Official!!" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="polaroid-caption">It's Official!!<br><span style="font-size:0.65rem;">2026</span></div>
       </div>
       <div class="polaroid-frame lights-off">
         <div class="polaroid-string-pin"></div>
@@ -2408,11 +2435,11 @@
       <div class="reach-title">By Air</div>
       <div class="reach-body">
         <strong>Bareilly Airport</strong><br>
-        ~50 km · ~1 hr drive<br><br>
+        ~50 km · ~1 hr away<br><br>
         <strong>Indira Gandhi Intl (DEL)</strong><br>
-        ~200 km · ~3.5 hrs<br><br>
+        ~200 km · ~3.5 hrs away<br><br>
         <strong>Jewar Airport</strong><br>
-        ~210 km · ~3 hrs
+        ~210 km · ~3 hrs away
       </div>
     </div>
     <div class="reach-card">
@@ -2443,8 +2470,7 @@
         <strong>Raza Library</strong> — Historic treasures<br>
         <strong>Kothi Khas Bagh</strong> — Royal palace<br>
         <strong>Nanak Sagar Dam</strong> — Scenic lake<br><br>
-         &<br>
-        <strong>Jim Corbett 🐯</strong> — 80 kms<br>
+        & <strong>Jim Corbett 🐯</strong> — 80 kms<br>
         <strong>Nainital ⛰️</strong> — 100 kms<br><br>
       </div>
     </div>
