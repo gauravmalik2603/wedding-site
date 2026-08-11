@@ -245,7 +245,8 @@
       z-index: 35;
     }
     #inv-overlay.transitioning {
-      background: radial-gradient(circle at center, #4A1122 0%, #1A040D 45%, #090208 100%);
+      background: radial-gradient(circle at center, rgba(74, 17, 34, 0.22) 0%, rgba(26, 4, 13, 0.13) 45%, rgba(9, 2, 8, 0.05) 100%);
+      backdrop-filter: blur(3px);
     }
     #inv-overlay.transitioning .inv-scene {
       opacity: 0;
@@ -255,6 +256,14 @@
     #inv-overlay.transitioning .ganesha-transition-layer {
       opacity: 1;
       transform: scale(1);
+    }
+    #inv-overlay.transitioning .inv-revealed,
+    #inv-overlay.transitioning .inv-panel,
+    #inv-overlay.transitioning .inv-seal,
+    #inv-overlay.transitioning .inv-dear {
+      opacity: 0.12;
+      filter: blur(1px);
+      transition: opacity 0.45s ease, filter 0.45s ease;
     }
     .ganesha-transition-layer .ganesha-bloom {
       position: absolute;
